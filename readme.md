@@ -22,3 +22,6 @@ $ php artisan db:seed
 
 Gil@GZID MINGW64 /c/xampp/htdocs/larticles (master)
 $ php artisan make:controller ArticlesController --resource
+
+Gil@GZID MINGW64 /c/xampp/htdocs/larticles (master)
+$ php artisan make:resource Articles
