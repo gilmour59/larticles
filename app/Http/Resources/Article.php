@@ -17,9 +17,24 @@ class Article extends JsonResource
         //return parent::toArray($request);
 
         //get data from http://larticles.test/api/articles 
-        return [
+        $a = [ 'test' => [
             'name' => $this->name,
             'body' => $this->body
+        ]];
+
+        $b = [ 
+            'name' => $this->name,
+            'body' => $this->body
+        ];
+
+        return $b;
+    }
+
+    public function with($request)
+    {
+        return [
+            'test add' => 'addition test',
+            'lmao' => 'rofl'  
         ];
     }
 }
