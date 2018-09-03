@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Article;
 use App\Http\Resources\Article as ArticleResource;
+use App\Http\Resources\ArticleCollection;
 
 class ArticlesController extends Controller
 {
@@ -17,10 +18,13 @@ class ArticlesController extends Controller
     public function index()
     {
         //Get Articles
-        $articles = Article::paginate(15);
+        //$articles = Article::paginate(15);
+        $articles = Article::all();
 
         //Return Collection of Articles as a Resource
-        return ArticleResource::collection($articles);
+
+        //return ArticleResource::collection($articles);
+        return new ArticleCollection($articles);
     }
 
     /**
@@ -31,7 +35,26 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        $article = $request->isMethod('put') ? Article::findOrFail($request->article_id) : new Article;
+
+        $article->id = $request->input('article_id');
+        $article->name = $request->input('name');
+        $article->body = $request->input('body');
+        */
+        if($request->isMethod('put')){
+            $article = Article::findOrFail($request->article_id);
+            $article->name = $request->input('name');
+            $article->body = $request->input('body');
+        }else{
+            $article = new Article;
+            $article->name = $request->input('name');
+            $article->body = $request->input('body');
+        }
+
+        if($article->save()){
+            return new ArticleResource($article);
+        }
     }
 
     /**
@@ -57,6 +80,12 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::findOrFail($id);
+
+        if($article->delete())
+        {
+            return new ArticleResource($article);
+        }
+        
     }
 }

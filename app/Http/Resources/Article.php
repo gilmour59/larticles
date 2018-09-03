@@ -18,11 +18,13 @@ class Article extends JsonResource
 
         //get data from http://larticles.test/api/articles 
         $a = [ 'test' => [
+            'id' => $this->id,
             'name' => $this->name,
             'body' => $this->body
         ]];
 
         $b = [ 
+            'id' => $this->id,
             'name' => $this->name,
             'body' => $this->body
         ];
@@ -34,7 +36,8 @@ class Article extends JsonResource
     {
         return [
             'test add' => 'addition test',
-            'lmao' => 'rofl'  
+            'lmao' => 'rofl',  
+            'iwantto' => 'die'
         ];
     }
 }
